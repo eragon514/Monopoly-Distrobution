@@ -27,14 +27,14 @@ def chance():
         5: ("%a", 0),
         6: ("%r", -3),
         }
-    return switch.get(random.randint(0, 16), na)
+    return switch.get(random.randint(0, 15), na)
 def communityChest():
     na = ("%r", 0)
     switch = {
         0: ("%a", 10),
         1: ("%a", 0),
     }
-    return switch.get(random.randint(0, 16), na)
+    return switch.get(random.randint(0, 15), na)
 
 #rolls the dice
 def rollDice(inRow):
