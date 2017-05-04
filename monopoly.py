@@ -9,11 +9,12 @@ import random
 inRow = 0 #how many doubles in a row
 
 #keeps track of how many times a space was visited (40 spaces)
-pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+pos = [0]*40
 #tracks current position on the board
 curPos = 0
 
-progress = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
+progress = []
+for i in range(5, 96, 5): progress += [i]
 
 #will draw a card from chance or community chest
 def chance():
@@ -27,14 +28,14 @@ def chance():
         5: ("%a", 0),
         6: ("%r", -3),
         }
-    return switch.get(random.randint(0, 16), na)
+    return switch.get(random.randint(0, 15), na) #randint is (inclusive, inclusive), not (inclusive, exclusive)
 def communityChest():
     na = ("%r", 0)
     switch = {
         0: ("%a", 10),
         1: ("%a", 0),
     }
-    return switch.get(random.randint(0, 16), na)
+    return switch.get(random.randint(0, 15), na)
 
 #rolls the dice
 def rollDice(inRow):
@@ -59,7 +60,7 @@ def move(rollIn, curPos):
 print("Starting")
 iterations = 10000000
 for i in range(0, iterations):
-    if (i / 100000) in progress: print(str(int(i / (iterations / 100))) + "%")
+    if (i / (iterations / 100)) in progress: print(str(int(i / (iterations / 100))) + "%")
     rollOut, inRow = rollDice(inRow)
     if inRow == 3 or curPos == 30: #if 3 doubles were rolled in a row or landed on go to jail
         inRow = 0
@@ -87,10 +88,11 @@ for i in range(0, iterations):
 print("100%\nPrinting Results")
 allRolls = sum(pos)
 
-print()
-print("Distrobution of most visited positions on board (raw):")
-for i in range(0, 40):
-    print("Square " + str(i) + ": " + str(pos[i]))
+#Raw data was used in debugging
+##print()
+##print("Distrobution of most visited positions on board (raw):")
+##for i in range(0, 40):
+##    print("Square " + str(i) + ": " + str(pos[i]))
 print()
 print("Distrobution of most visited positions on board (percent):")
 for i in range(0, 40):
