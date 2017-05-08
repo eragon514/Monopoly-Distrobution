@@ -28,7 +28,9 @@ def chance():
         5: ("%a", 0),
         6: ("%r", -3),
         }
-    return switch.get(random.randint(0, 15), na) #randint is (inclusive, inclusive), not (inclusive, exclusive)
+
+    return switch.get(random.randint(0, 15), na)  #randint is (inclusive, inclusive), not (inclusive, exclusive)
+
 def communityChest():
     na = ("%r", 0)
     switch = {
